@@ -1,8 +1,8 @@
 <?php
-$host = "localhost";
-$dbname = "lensora_db";
-$username = "root";
-$password = "";
+$host = "sql113.infinityfree.com";
+$dbname = "if0_41979018_lensora_db";
+$username = "if0_41979018";
+$password = "lGz5V8Pk6kYtA";
 //
 try {
     $pdo = new PDO(
