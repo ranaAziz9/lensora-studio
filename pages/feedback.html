@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--
+  Name: Amirah Almutairi
+  Name: Rana Alzaharni
+  Name: Rama Aseeri
+  ID: 2205930
+  ID: 2206360
+  ID: 2206250
+  Section: DAR
+  Date: 2/4/2026
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | Lensora Studio</title>
+    <link rel="stylesheet" href="../global/main.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header: primary navigation -->
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Primary navigation">
+            <div class="container nav-container">
+                <a href="../index.html" class="nav-logo">
+                    <img src="../images/logo.png" alt="Lensora Studio logo">
+                </a>
+                <ul id="primary-nav" class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="work.html">Our Work</a></li>
+                    <li><a href="video.html">Video</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="pages/auth.html" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="main-content">
+        <!-- Hero section: page introduction -->
+        <section class="hero hero-compact" aria-labelledby="feedback-hero-heading">
+            <div class="container">
+                <h1 id="feedback-hero-heading">Feedback</h1>
+                <p>Client comments and ratings.</p>
+            </div>
+        </section>
+
+        <!-- Feedback form section -->
+        <section aria-labelledby="form-heading">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="form-heading">Client Feedback Form</h2>
+                    <div class="accent-line"></div>
+                </div>
+
+                <div style="max-width: 600px; margin: 0 auto;">
+                    
+                        
+                    </div>
+
+                    <form id="feedback-form" class="form-panel">
+                        <div class="form-group">
+                            <label for="name">Name <abbr title="required">*</abbr></label>
+                            <input type="text" id="name" name="name" placeholder="Your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email <abbr title="required">*</abbr></label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        </div>
+
+                        <fieldset class="form-group">
+                            <legend>How would you rate your experience? <abbr title="required">*</abbr></legend>
+                            <div class="form-group-inline">
+                                <label><input type="radio" name="rating" value="good" required> Good</label>
+                                <label><input type="radio" name="rating" value="average" required> Average</label>
+                                <label><input type="radio" name="rating" value="poor" required> Poor</label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <legend>Which services did you use? <abbr title="required">*</abbr></legend>
+                            <ul class="form-checkbox-list">
+                                <li><label><input type="checkbox" name="services" value="portrait"> Portrait photography</label></li>
+                                <li><label><input type="checkbox" name="services" value="graduation"> Graduation photography</label></li>
+                                <li><label><input type="checkbox" name="services" value="product"> Product photography</label></li>
+                                <li><label><input type="checkbox" name="services" value="events"> Events &amp; parties</label></li>
+                                <li><label><input type="checkbox" name="services" value="video"> Video production</label></li>
+                            </ul>
+                        </fieldset>
+
+                        <div class="form-group">
+                            <label for="style-preference">Which style do you prefer for future sessions?</label>
+                            <select id="style-preference" name="style-preference">
+                                <option>Select your preference</option>
+                                <option>Indoor Studio</option>
+                                <option>Outdoor Natural</option>
+                                <option>Dark Editing Style</option>
+                                <option>Bright Editing Style</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comments">Additional comments</label>
+                            <textarea id="comments" name="comments" placeholder="What went well? What should we improve?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Submit Feedback</button>
+                        
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ section -->
+        <section class="section-alt" aria-labelledby="faq-heading">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="faq-heading">Frequently Asked Questions</h2>
+                    <div class="accent-line"></div>
+                </div>
+
+                <div class="faq-grid">
+                    <div class="info-card">
+                        <h4>How long until I receive photos?</h4>
+                        <p>Most galleries arrive within 5–7 business days. Rush options may be available.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Do you retouch skin and color?</h4>
+                        <p>Yes—packages include tasteful retouching; heavier edits can be quoted separately.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Can I reschedule?</h4>
+                        <p>Yes, with at least 48 hours’ notice in most cases. Check your confirmation email for details.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>What is the cancellation policy?</h4>
+                        <p>Cancel 48+ hours ahead for a full deposit refund; late cancellations may forfeit the deposit.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Do you sell prints?</h4>
+                        <p>Standard and Premium packages include prints; additional sizes are available à la carte.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Outdoor sessions?</h4>
+                        <p>We shoot outdoors year-round and scout locations with you during planning.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer: contact and feedback -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Lensora Studio</h3>
+                    <p>Photography and short-form video for people and brands who care about detail.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Feedback</h3>
+                    <p class="footer-feedback"><a href="feedback.html">Client feedback form</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <address class="footer-address">
+                        Email: <a href="mailto:info@lensora.com">info@lensora.com</a><br>
+                        Phone: <a href="tel:+966500000000">+966 50 000 0000</a><br>
+                        Jeddah, Saudi Arabia
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Lensora Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal section: confirmation message -->
+    <div id="feedback-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000;">
+        <div class="modal-content" style="background: #fff; padding: 40px; border-radius: 16px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div style="font-size: 50px; margin-bottom: 15px;">✉️</div>
+            <h2 style="margin-bottom: 10px;">Feedback Received!</h2>
+            <p id="modal-msg" style="color: #666; margin-bottom: 25px; line-height: 1.5;"></p>
+            <button id="close-feedback" class="btn btn-primary" style="width: 100%; padding: 12px; border-radius: 8px; border: none; cursor: pointer;">Back to Form</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const feedbackForm = document.getElementById("feedback-form");
+            const modal = document.getElementById("feedback-modal");
+            const closeBtn = document.getElementById("close-feedback");
+            const modalMsg = document.getElementById("modal-msg");
+
+            if (feedbackForm) {
+                feedbackForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const name = document.getElementById("name").value;
+                    modalMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your feedback helps us improve <strong>Lensora Studio</strong>. We appreciate your time.`;
+                    modal.style.display = "flex";
+                });
+            }
+
+            closeBtn.addEventListener("click", function () {
+                modal.style.display = "none";
+                feedbackForm.reset();
+            });
+
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            };
+        });
+    </script>
+</body>
+</html>

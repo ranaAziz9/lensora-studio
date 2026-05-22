@@ -1,0 +1,60 @@
+/**
+ * Lensora Studio — Print stylesheet
+ * print view shows booking schedule table content only.
+ */
+
+@media print {
+  body {
+    margin: 0;
+    padding: 1rem;
+    color: #000;
+    background: #fff;
+    font-size: 11pt;
+  }
+
+  /* Hide everything except the printable table region */
+  body * {
+    visibility: hidden;
+  }
+
+  .print-table-area,
+  .print-table-area * {
+    visibility: visible;
+  }
+
+  .print-table-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .print-table-area caption {
+    caption-side: top;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .print-table-area table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .print-table-area th,
+  .print-table-area td {
+    border: 1px solid #000;
+    padding: 0.35rem 0.5rem;
+    text-align: center;
+  }
+
+  .print-table-area .slot {
+    border: 1px solid #333;
+    background: #fff !important;
+    color: #000 !important;
+    cursor: default;
+  }
+
+  .print-table-area .slot.booked {
+    font-style: italic;
+  }
+}

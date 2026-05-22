@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account | Lensora Studio</title>
+
+<link rel="stylesheet" href="../global/main.css">
+
+<style>
+
+/* =========================
+   AUTH PAGE - LENSORA STYLE
+   ========================= */
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--light-gray);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.auth-container {
+    width: 420px;
+
+    background: #8f79b8; 
+
+    padding: 30px;
+    border-radius: 15px;
+
+    box-shadow: 0 12px 35px rgba(107, 91, 149, 0.25);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 5px solid var(--black);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 140px;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--gray);
+}
+
+.tabs button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    background: var(--light-gray);
+    color: var(--text-light);
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.tabs button.active {
+    background: var(--primary-purple);
+    color: var(--white);
+}
+
+form {
+    display: none;
+    flex-direction: column;
+}
+
+form.active {
+    display: flex;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--gray);
+    background: var(--white);
+    color: var(--text-dark);
+    outline: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+input:focus {
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 3px rgba(155, 126, 189, 0.15);
+}
+
+button.submit {
+    padding: 12px;
+    background: var(--primary-purple);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+button.submit:hover {
+    background: var(--dark-purple);
+    transform: translateY(-2px);
+}
+
+.password-rules {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: -10px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.small-text {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 15px;
+    color: var(--text-light);
+}
+
+/* Alerts */
+.alert {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+.alert-success {
+    background: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="logo">
+        <a href="../index.php">
+            <img src="../images/logo.png" alt="Lensora Logo">
+        </a>
+    </div>
+
+    <div class="tabs">
+        <button id="tab-login-btn" class="active" onclick="showForm('login')" type="button">
+            Login
+        </button>
+        <button id="tab-register-btn" onclick="showForm('register')" type="button">
+            Register
+        </button>
+    </div>
+
+    <div id="error-alert" class="alert alert-error"></div>
+    <div id="success-alert" class="alert alert-success"></div>
+
+    <!-- LOGIN -->
+    <form id="login" class="active" method="POST" action="../login.php">
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit" class="submit">Login</button>
+    </form>
+
+    <!-- REGISTER -->
+    <form id="register" method="POST" action="../register.php">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+       <div class="password-rules">
+        <strong>Password must:</strong>
+        <ul>
+            <li>Be at least 8 characters</li>
+            <li>Include uppercase (A-Z) & lowercase (a-z)</li>
+            <li>Include number (0-9)</li>
+            <li>Include special character (!@#$%)</li>
+        </ul>
+    </div>
+
+        <button type="submit" class="submit">Register</button>
+    </form>
+
+    <p class="small-text">Lensora Studio © 2026</p>
+
+</div>
+
+<script>
+function showForm(type) {
+    let forms = document.querySelectorAll("form");
+    let btnLogin = document.getElementById("tab-login-btn");
+    let btnRegister = document.getElementById("tab-register-btn");
+
+    forms.forEach(f => f.classList.remove("active"));
+    btnLogin.classList.remove("active");
+    btnRegister.classList.remove("active");
+
+    document.getElementById(type).classList.add("active");
+
+    if(type === 'login'){
+        btnLogin.classList.add("active");
+    } else {
+        btnRegister.classList.add("active");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    const success = urlParams.get('success');
+    const tab = urlParams.get('tab');
+
+    if (tab) showForm(tab);
+
+    const errorBox = document.getElementById("error-alert");
+    const successBox = document.getElementById("success-alert");
+
+    if (error === 'invalid') {
+        errorBox.innerText = "Invalid email or password ❌";
+        errorBox.style.display = "block";
+    } 
+    else if (error === 'exists') {
+        errorBox.innerText = "Email already exists ⚠️";
+        errorBox.style.display = "block";
+    } 
+    else if (error === 'empty') {
+        errorBox.innerText = "Please fill all fields ⚠️";
+        errorBox.style.display = "block";
+    }
+
+    if (success === 'registered') {
+        successBox.innerText = "Account created successfully ✔️";
+        successBox.style.display = "block";
+    }
+});
+</script>
+
+</body>
+</html>
