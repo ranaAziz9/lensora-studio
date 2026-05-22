@@ -3,7 +3,7 @@ $host = "localhost";
 $dbname = "lensora_db";
 $username = "root";
 $password = "";
-
+//
 try {
     $pdo = new PDO(
         "mysql:host=$host;dbname=$dbname;charset=utf8",
