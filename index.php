@@ -34,6 +34,9 @@
                     <li><a href="pages/video.html">Video</a></li>
                     <li><a href="pages/feedback.html">Feedback</a></li>
                     <li><a href="pages/auth.html" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
+                    <button onclick="location.href='pages/profile.php'">
+My Profile
+</button>
                 </ul>
             </div>
         </nav>

@@ -191,7 +191,7 @@ button.submit:hover {
         <input type="password" name="password" placeholder="Password" required>
 
        <div class="password-rules">
-        <strong>Password must:</strong>
+        <strong>Password must include:</strong>
         <ul>
             <li>Be at least 8 characters</li>
             <li>Include uppercase (A-Z) & lowercase (a-z)</li>
@@ -239,17 +239,22 @@ document.addEventListener("DOMContentLoaded", function() {
     const successBox = document.getElementById("success-alert");
 
     if (error === 'invalid') {
-        errorBox.innerText = "Invalid email or password ❌";
-        errorBox.style.display = "block";
-    } 
-    else if (error === 'exists') {
-        errorBox.innerText = "Email already exists ⚠️";
-        errorBox.style.display = "block";
-    } 
-    else if (error === 'empty') {
-        errorBox.innerText = "Please fill all fields ⚠️";
-        errorBox.style.display = "block";
-    }
+    errorBox.innerText = "Invalid email or password ❌";
+    errorBox.style.display = "block";
+} 
+else if (error === 'exists') {
+    errorBox.innerText = "Email already exists ⚠️";
+    errorBox.style.display = "block";
+} 
+else if (error === 'empty') {
+    errorBox.innerText = "Please fill all fields ⚠️";
+    errorBox.style.display = "block";
+}
+else if (error === 'weakpassword') {
+    errorBox.innerText =
+        "Password is too weak ❌ Must be 8+ characters, include uppercase, lowercase, number & symbol.";
+    errorBox.style.display = "block";
+}
 
     if (success === 'registered') {
         successBox.innerText = "Account created successfully ✔️";
