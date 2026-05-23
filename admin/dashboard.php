@@ -11,7 +11,10 @@ $portraitImages = getGalleryImages($pdo, "portrait");
 $eventsImages   = getGalleryImages($pdo, "events");
 $weddingImages  = getGalleryImages($pdo, "wedding");
 $productImages  = getGalleryImages($pdo, "product");
+$videosStmt = $pdo->query("SELECT * FROM site_videos ORDER BY created_at DESC");
+$videos = $videosStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,6 +50,96 @@ $productImages  = getGalleryImages($pdo, "product");
     <p>Manage Lensora Studio content, bookings, and client feedback.</p>
   </div>
 </section>
+
+<section class="section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Manage Services</h2>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="text-center mb-4">
+          <button class="btn btn-primary">Add New Service</button>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Portrait Photography</h3>
+            <p>Headshots, families, and personal branding.</p>
+            <p class="price">Starting from <strong>$199</strong></p>
+            <button class="btn btn-secondary btn-full">Edit</button>
+            <button class="btn btn-dark btn-full">Delete</button>
+          </div>
+
+          <div class="service-card">
+            <h3>Graduation Photography</h3>
+            <p>Caps, gowns, and celebration shots.</p>
+            <p class="price">Starting from <strong>$299</strong></p>
+            <button class="btn btn-secondary btn-full">Edit</button>
+            <button class="btn btn-dark btn-full">Delete</button>
+          </div>
+
+          <div class="service-card">
+            <h3>Product Photography</h3>
+            <p>Clean catalog images and hero shots.</p>
+            <p class="price">Starting from <strong>$149</strong></p>
+            <button class="btn btn-secondary btn-full">Edit</button>
+            <button class="btn btn-dark btn-full">Delete</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <h2>Manage Packages</h2>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="text-center mb-4">
+          <button class="btn btn-primary">Add New Package</button>
+        </div>
+
+        <div class="package-grid">
+          <div class="package-card">
+            <h3>Basic Package</h3>
+            <p class="price">$199</p>
+            <ul class="pkg-list">
+              <li>1-hour session</li>
+              <li>50+ edited photos</li>
+              <li>Digital copies</li>
+            </ul>
+            <button class="btn btn-secondary btn-full">Edit</button>
+            <button class="btn btn-dark btn-full">Delete</button>
+          </div>
+
+          <div class="package-card">
+            <h3>Standard Package</h3>
+            <p class="price">$349</p>
+            <ul class="pkg-list">
+              <li>2-hour session</li>
+              <li>100+ edited photos</li>
+              <li>Digital + USB</li>
+            </ul>
+            <button class="btn btn-secondary btn-full">Edit</button>
+            <button class="btn btn-dark btn-full">Delete</button>
+          </div>
+
+          <div class="package-card">
+            <h3>Premium Package</h3>
+            <p class="price">$599</p>
+            <ul class="pkg-list">
+              <li>4-hour session</li>
+              <li>200+ edited photos</li>
+              <li>Album included</li>
+            </ul>
+            <button class="btn btn-secondary btn-full">Edit</button>
+            <button class="btn btn-dark btn-full">Delete</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
 <section class="section-alt">
   <div class="container">
@@ -128,6 +221,49 @@ $sections = [
   </div>
 </section>
 <?php endforeach; ?>
+
+<section class="section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Manage Video</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="form-panel mb-4">
+      <form action="upload-video.php" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="video">Upload New Video</label>
+          <input type="file" id="video" name="video" accept="video/mp4,video/webm,video/ogg" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add New Video</button>
+      </form>
+    </div>
+
+    <div class="gallery-grid">
+  <?php foreach ($videos as $video): ?>
+
+    <div class="admin-video-card">
+
+  <div style="max-width:520px; margin:0 auto 2rem; background:#fff; padding:1rem; border-radius:1rem;">
+
+  <video controls style="width:100%; height:300px; object-fit:contain; display:block; margin:0 auto 1rem; border-radius:12px; background:#000;">
+    <source src="../<?php echo htmlspecialchars($video['video_path']); ?>" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <a href="delete-video.php?id=<?php echo $video['id']; ?>"
+     class="btn btn-dark btn-full"
+     onclick="return confirm('Are you sure you want to delete this video?');">
+    Delete
+  </a>
+
+</div>
+    </div>
+  <?php endforeach; ?>
+
+
+</section>
 
 </main>
 
