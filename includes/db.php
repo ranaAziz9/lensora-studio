@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$dbname = "lensora_db";
+$dbname = "lensora_studio";
 $username = "root";
 $password = "";
 //
@@ -17,3 +17,4 @@ try {
     die("DB Connection Failed: " . $e->getMessage());
 }
 ?>
+

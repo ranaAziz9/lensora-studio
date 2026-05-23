@@ -189,8 +189,27 @@
     <h2 class="section-title">Portrait Photography</h2>
 
     <div class="text-center mb-4">
-      <button class="btn btn-primary">Add New Image</button>
-    </div>
+
+  <form action="upload-gallery.php"
+        method="POST"
+        enctype="multipart/form-data">
+
+    <input type="hidden"
+           name="category"
+           value="portrait">
+
+    <input type="file"
+           name="image"
+           required>
+
+    <button type="submit"
+            class="btn btn-primary">
+      Add New Image
+    </button>
+
+  </form>
+
+</div>
 
     <div class="gallery-grid">
       <div>
@@ -218,8 +237,27 @@
     <h2 class="section-title">Event Photography</h2>
 
     <div class="text-center mb-4">
-      <button class="btn btn-primary">Add New Image</button>
-    </div>
+
+  <form action="upload-gallery.php"
+        method="POST"
+        enctype="multipart/form-data">
+
+    <input type="hidden"
+           name="category"
+           value="events">
+
+    <input type="file"
+           name="image"
+           required>
+
+    <button type="submit"
+            class="btn btn-primary">
+      Add New Image
+    </button>
+
+  </form>
+
+</div>
 
     <div class="gallery-grid">
       <div>
@@ -247,8 +285,27 @@
     <h2 class="section-title">Wedding Photography</h2>
 
     <div class="text-center mb-4">
-      <button class="btn btn-primary">Add New Image</button>
-    </div>
+
+  <form action="upload-gallery.php"
+        method="POST"
+        enctype="multipart/form-data">
+
+    <input type="hidden"
+           name="category"
+           value="wedding">
+
+    <input type="file"
+           name="image"
+           required>
+
+    <button type="submit"
+            class="btn btn-primary">
+      Add New Image
+    </button>
+
+  </form>
+
+</div>
 
     <div class="gallery-grid">
       <div>
@@ -276,8 +333,27 @@
     <h2 class="section-title">Product Photography</h2>
 
     <div class="text-center mb-4">
-      <button class="btn btn-primary">Add New Image</button>
-    </div>
+
+  <form action="upload-gallery.php"
+        method="POST"
+        enctype="multipart/form-data">
+
+    <input type="hidden"
+           name="category"
+           value="product">
+
+    <input type="file"
+           name="image"
+           required>
+
+    <button type="submit"
+            class="btn btn-primary">
+      Add New Image
+    </button>
+
+  </form>
+
+</div>
 
     <div class="gallery-grid">
       <div>

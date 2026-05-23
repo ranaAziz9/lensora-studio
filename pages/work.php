@@ -23,16 +23,16 @@
     <header class="site-header">
         <nav class="site-nav" aria-label="Primary navigation">
             <div class="container nav-container">
-                <a href="../index.html" class="nav-logo">
+                <a href="../index.php" class="nav-logo">
                     <img src="../images/logo.png" alt="Lensora Studio logo">
                 </a>
                 <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="work.html" class="active">Our Work</a></li>
-                    <li><a href="video.html">Video</a></li>
-                    <li><a href="feedback.html">Feedback</a></li>
-                    <li><a href="pages/auth.html" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
+                    <li><a href="../index.php">Home</a></li>
+                    <li><a href="services.php">Services</a></li>
+                    <li><a href="work.php" class="active">Our Work</a></li>
+                    <li><a href="video.php">Video</a></li>
+                    <li><a href="feedback.php">Feedback</a></li>
+                    <li><a href="pages/auth.php" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
                 </ul>
             </div>
         </nav>
