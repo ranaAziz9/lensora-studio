@@ -30,7 +30,7 @@
                 <ul id="primary-nav" class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="pages/services.html">Services</a></li>
-                    <li><a href="pages/work.html">Our Work</a></li>
+                    <li><a href="pages/work.php">Our Work</a></li>
                     <li><a href="pages/video.html">Video</a></li>
                     <li><a href="pages/feedback.html">Feedback</a></li>
                     <li><a href="pages/auth.html" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>

@@ -1,14 +1,18 @@
+<?php
+require_once "../includes/db.php";
+
+function getGalleryImages($pdo, $category) {
+    $stmt = $pdo->prepare("SELECT * FROM gallery_images WHERE category = ? ORDER BY created_at DESC");
+    $stmt->execute([$category]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$portraitImages = getGalleryImages($pdo, "portrait");
+$eventsImages   = getGalleryImages($pdo, "events");
+$weddingImages  = getGalleryImages($pdo, "wedding");
+$productImages  = getGalleryImages($pdo, "product");
+?>
 <!DOCTYPE html>
-<!--
-  Name: Amirah Almutairi
-  Name: Rana Alzaharni
-  Name: Rama Aseeri
-  ID: 2205930
-  ID: 2206360
-  ID: 2206250
-  Section: DAR
-  Date: 2/4/2026
--->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,7 +23,6 @@
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Header: primary navigation -->
     <header class="site-header">
         <nav class="site-nav" aria-label="Primary navigation">
             <div class="container nav-container">
@@ -32,14 +35,13 @@
                     <li><a href="work.php" class="active">Our Work</a></li>
                     <li><a href="video.php">Video</a></li>
                     <li><a href="feedback.php">Feedback</a></li>
-                    <li><a href="pages/auth.php" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
+                    <li><a href="auth.php" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
     <main id="main-content" class="main-content">
-        <!-- Hero section: work page introduction -->
         <section class="hero hero-compact" aria-labelledby="work-heading">
             <div class="container">
                 <h1 id="work-heading">Our Work</h1>
@@ -47,7 +49,6 @@
             </div>
         </section>
 
-        <!-- Categories section: gallery categories -->
         <section aria-labelledby="categories-heading">
             <div class="container">
                 <h2 id="categories-heading">Gallery Categories</h2>
@@ -84,60 +85,51 @@
             </div>
         </section>
 
-        <!-- Portrait gallery section -->
         <section id="portrait" class="gallery-section hidden" aria-labelledby="portrait-heading">
             <div class="container">
                 <h2 id="portrait-heading" class="section-title">Portrait Photography</h2>
                 <div class="gallery-grid">
-                    <img src="../images/5-work.jpeg" alt="Portrait example 1">
-                    <img src="../images/6-work.jpeg" alt="Portrait example 2">
-                    <img src="../images/7-work.jpeg" alt="Portrait example 3">
-                    <img src="../images/8-work.jpeg" alt="Portrait example 4">
+                    <?php foreach ($portraitImages as $img): ?>
+                        <img src="../<?php echo htmlspecialchars($img['image_path']); ?>" alt="Portrait image">
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
 
-        <!-- Events gallery section -->
         <section id="events" class="gallery-section hidden" aria-labelledby="events-heading">
             <div class="container">
                 <h2 id="events-heading" class="section-title">Event Photography</h2>
                 <div class="gallery-grid">
-                    <img src="../images/9-work.jpeg" alt="Event example 1">
-                    <img src="../images/10-work.jpeg" alt="Event example 2">
-                    <img src="../images/11-work.jpeg" alt="Event example 3">
-                    <img src="../images/12-work.jpeg" alt="Event example 4">
+                    <?php foreach ($eventsImages as $img): ?>
+                        <img src="../<?php echo htmlspecialchars($img['image_path']); ?>" alt="Event image">
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
 
-        <!-- Wedding gallery section -->
         <section id="wedding" class="gallery-section hidden" aria-labelledby="wedding-heading">
             <div class="container">
                 <h2 id="wedding-heading" class="section-title">Wedding Photography</h2>
                 <div class="gallery-grid">
-                    <img src="../images/13-work.jpeg" alt="Wedding example 1">
-                    <img src="../images/14-work.jpeg" alt="Wedding example 2">
-                    <img src="../images/15-work.jpeg" alt="Wedding example 3">
-                    <img src="../images/16-work.jpeg" alt="Wedding example 4">
+                    <?php foreach ($weddingImages as $img): ?>
+                        <img src="../<?php echo htmlspecialchars($img['image_path']); ?>" alt="Wedding image">
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
 
-        <!-- Product gallery section -->
         <section id="product" class="gallery-section hidden" aria-labelledby="product-heading">
             <div class="container">
                 <h2 id="product-heading" class="section-title">Product Photography</h2>
                 <div class="gallery-grid">
-                    <img src="../images/17-work.jpeg" alt="Product example 1">
-                    <img src="../images/18-work.jpeg" alt="Product example 2">
-                    <img src="../images/19-work.jpeg" alt="Product example 3">
-                    <img src="../images/20-work.jpeg" alt="Product example 4">
+                    <?php foreach ($productImages as $img): ?>
+                        <img src="../<?php echo htmlspecialchars($img['image_path']); ?>" alt="Product image">
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer: contact and feedback -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-content">
@@ -148,7 +140,7 @@
 
                 <div class="footer-section">
                     <h3>Feedback</h3>
-                    <p class="footer-feedback"><a href="feedback.html">Client feedback form</a></p>
+                    <p class="footer-feedback"><a href="feedback.php">Client feedback form</a></p>
                 </div>
 
                 <div class="footer-section">

@@ -1,3 +1,17 @@
+<?php
+require_once "../includes/db.php";
+
+function getGalleryImages($pdo, $category) {
+    $stmt = $pdo->prepare("SELECT * FROM gallery_images WHERE category = ? ORDER BY created_at DESC");
+    $stmt->execute([$category]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$portraitImages = getGalleryImages($pdo, "portrait");
+$eventsImages   = getGalleryImages($pdo, "events");
+$weddingImages  = getGalleryImages($pdo, "wedding");
+$productImages  = getGalleryImages($pdo, "product");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,145 +21,34 @@
   <link rel="stylesheet" href="../global/main.css">
 </head>
 
-
 <body>
-  <header class="site-header">
-    <nav class="site-nav">
-      <div class="container nav-container">
-        <a href="../index.html" class="nav-logo">
-          <img src="../images/logo.png" alt="Lensora Studio logo">
-        </a>
+<header class="site-header">
+  <nav class="site-nav">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <img src="../images/logo.png" alt="Lensora Studio logo">
+      </a>
 
-        <ul class="nav-links">
+      <ul class="nav-links">
+        <li><a href="dashboard.php" class="active">Dashboard</a></li>
+        <li><a href="users.php">Users</a></li>
+        <li><a href="../index.php">View Website</a></li>
+        <li><a href="../logout.php">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
 
-  <li>
-    <a href="dashboard.php" class="active">
-      Dashboard
-    </a>
-  </li>
+<main class="main-content">
 
-  <li>
-    <a href="users.php">
-      Users
-    </a>
-  </li>
+<section class="hero hero-compact">
+  <div class="container">
+    <h1>Dashboard</h1>
+    <p>Manage Lensora Studio content, bookings, and client feedback.</p>
+  </div>
+</section>
 
-  <li>
-    <a href="../index.php">
-      View Website
-    </a>
-  </li>
-
-  <li>
-    <a href="../logout.php">
-      Logout
-    </a>
-  </li>
-
-</ul>
-      </div>
-    </nav>
-  </header>
-
-  <main class="main-content">
-    <section class="hero hero-compact">
-      <div class="container">
-        <h1>Dashboard</h1>
-        <p>Manage Lensora Studio content, bookings, and client feedback.</p>
-      </div>
-    </section>
-
-    <section class="section-alt">
-      <div class="container">
-        <div class="section-header">
-          <h2>Manage Services</h2>
-          <div class="accent-line"></div>
-        </div>
-
-        <div class="text-center mb-4">
-          <button class="btn btn-primary">Add New Service</button>
-        </div>
-
-        <div class="services-grid">
-          <div class="service-card">
-            <h3>Portrait Photography</h3>
-            <p>Headshots, families, and personal branding.</p>
-            <p class="price">Starting from <strong>$199</strong></p>
-            <button class="btn btn-secondary btn-full">Edit</button>
-            <button class="btn btn-dark btn-full">Delete</button>
-          </div>
-
-          <div class="service-card">
-            <h3>Graduation Photography</h3>
-            <p>Caps, gowns, and celebration shots.</p>
-            <p class="price">Starting from <strong>$299</strong></p>
-            <button class="btn btn-secondary btn-full">Edit</button>
-            <button class="btn btn-dark btn-full">Delete</button>
-          </div>
-
-          <div class="service-card">
-            <h3>Product Photography</h3>
-            <p>Clean catalog images and hero shots.</p>
-            <p class="price">Starting from <strong>$149</strong></p>
-            <button class="btn btn-secondary btn-full">Edit</button>
-            <button class="btn btn-dark btn-full">Delete</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="section-header">
-          <h2>Manage Packages</h2>
-          <div class="accent-line"></div>
-        </div>
-
-        <div class="text-center mb-4">
-          <button class="btn btn-primary">Add New Package</button>
-        </div>
-
-        <div class="package-grid">
-          <div class="package-card">
-            <h3>Basic Package</h3>
-            <p class="price">$199</p>
-            <ul class="pkg-list">
-              <li>1-hour session</li>
-              <li>50+ edited photos</li>
-              <li>Digital copies</li>
-            </ul>
-            <button class="btn btn-secondary btn-full">Edit</button>
-            <button class="btn btn-dark btn-full">Delete</button>
-          </div>
-
-          <div class="package-card">
-            <h3>Standard Package</h3>
-            <p class="price">$349</p>
-            <ul class="pkg-list">
-              <li>2-hour session</li>
-              <li>100+ edited photos</li>
-              <li>Digital + USB</li>
-            </ul>
-            <button class="btn btn-secondary btn-full">Edit</button>
-            <button class="btn btn-dark btn-full">Delete</button>
-          </div>
-
-          <div class="package-card">
-            <h3>Premium Package</h3>
-            <p class="price">$599</p>
-            <ul class="pkg-list">
-              <li>4-hour session</li>
-              <li>200+ edited photos</li>
-              <li>Album included</li>
-            </ul>
-            <button class="btn btn-secondary btn-full">Edit</button>
-            <button class="btn btn-dark btn-full">Delete</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-alt">
+<section class="section-alt">
   <div class="container">
     <div class="section-header">
       <h2>Manage Gallery</h2>
@@ -184,252 +87,59 @@
   </div>
 </section>
 
-<section id="admin-portrait" class="gallery-section hidden">
+<?php
+$sections = [
+    "admin-portrait" => ["title" => "Portrait Photography", "category" => "portrait", "images" => $portraitImages],
+    "admin-events" => ["title" => "Event Photography", "category" => "events", "images" => $eventsImages],
+    "admin-wedding" => ["title" => "Wedding Photography", "category" => "wedding", "images" => $weddingImages],
+    "admin-product" => ["title" => "Product Photography", "category" => "product", "images" => $productImages],
+];
+?>
+
+<?php foreach ($sections as $sectionId => $section): ?>
+<section id="<?php echo $sectionId; ?>" class="gallery-section hidden">
   <div class="container">
-    <h2 class="section-title">Portrait Photography</h2>
+    <h2 class="section-title"><?php echo $section["title"]; ?></h2>
 
     <div class="text-center mb-4">
-
-  <form action="upload-gallery.php"
-        method="POST"
-        enctype="multipart/form-data">
-
-    <input type="hidden"
-           name="category"
-           value="portrait">
-
-    <input type="file"
-           name="image"
-           required>
-
-    <button type="submit"
-            class="btn btn-primary">
-      Add New Image
-    </button>
-
-  </form>
-
-</div>
+      <form action="upload-gallery.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="category" value="<?php echo $section["category"]; ?>">
+        <input type="file" name="image" required>
+        <button type="submit" class="btn btn-primary">Add New Image</button>
+      </form>
+    </div>
 
     <div class="gallery-grid">
-      <div>
-        <img src="../images/5-work.jpeg" alt="Portrait example 1">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/6-work.jpeg" alt="Portrait example 2">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/7-work.jpeg" alt="Portrait example 3">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/8-work.jpeg" alt="Portrait example 4">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
+      <?php if (count($section["images"]) > 0): ?>
+        <?php foreach ($section["images"] as $img): ?>
+          <div>
+            <img src="../<?php echo htmlspecialchars($img["image_path"]); ?>" alt="Gallery image">
+            <a href="delete-gallery.php?id=<?php echo $img["id"]; ?>"
+               class="btn btn-dark btn-full"
+               onclick="return confirm('Are you sure you want to delete this image?');">
+              Delete
+            </a>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <p class="text-center">No images uploaded yet.</p>
+      <?php endif; ?>
     </div>
   </div>
 </section>
+<?php endforeach; ?>
 
-<section id="admin-events" class="gallery-section hidden">
+</main>
+
+<footer class="site-footer">
   <div class="container">
-    <h2 class="section-title">Event Photography</h2>
-
-    <div class="text-center mb-4">
-
-  <form action="upload-gallery.php"
-        method="POST"
-        enctype="multipart/form-data">
-
-    <input type="hidden"
-           name="category"
-           value="events">
-
-    <input type="file"
-           name="image"
-           required>
-
-    <button type="submit"
-            class="btn btn-primary">
-      Add New Image
-    </button>
-
-  </form>
-
-</div>
-
-    <div class="gallery-grid">
-      <div>
-        <img src="../images/9-work.jpeg" alt="Event example 1">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/10-work.jpeg" alt="Event example 2">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/11-work.jpeg" alt="Event example 3">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/12-work.jpeg" alt="Event example 4">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Lensora Studio. Admin Panel.</p>
     </div>
   </div>
-</section>
+</footer>
 
-<section id="admin-wedding" class="gallery-section hidden">
-  <div class="container">
-    <h2 class="section-title">Wedding Photography</h2>
-
-    <div class="text-center mb-4">
-
-  <form action="upload-gallery.php"
-        method="POST"
-        enctype="multipart/form-data">
-
-    <input type="hidden"
-           name="category"
-           value="wedding">
-
-    <input type="file"
-           name="image"
-           required>
-
-    <button type="submit"
-            class="btn btn-primary">
-      Add New Image
-    </button>
-
-  </form>
-
-</div>
-
-    <div class="gallery-grid">
-      <div>
-        <img src="../images/13-work.jpeg" alt="Wedding example 1">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/14-work.jpeg" alt="Wedding example 2">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/15-work.jpeg" alt="Wedding example 3">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/16-work.jpeg" alt="Wedding example 4">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="admin-product" class="gallery-section hidden">
-  <div class="container">
-    <h2 class="section-title">Product Photography</h2>
-
-    <div class="text-center mb-4">
-
-  <form action="upload-gallery.php"
-        method="POST"
-        enctype="multipart/form-data">
-
-    <input type="hidden"
-           name="category"
-           value="product">
-
-    <input type="file"
-           name="image"
-           required>
-
-    <button type="submit"
-            class="btn btn-primary">
-      Add New Image
-    </button>
-
-  </form>
-
-</div>
-
-    <div class="gallery-grid">
-      <div>
-        <img src="../images/17-work.jpeg" alt="Product example 1">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/18-work.jpeg" alt="Product example 2">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/19-work.jpeg" alt="Product example 3">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-      <div>
-        <img src="../images/20-work.jpeg" alt="Product example 4">
-        <button class="btn btn-dark btn-full">Delete</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <section>
-      <div class="container">
-        <div class="section-header">
-          <h2>View Feedback</h2>
-          <div class="accent-line"></div>
-        </div>
-
-        <div class="form-panel">
-          <table class="booking-table">
-            <thead>
-              <tr>
-                <th>Client Name</th>
-                <th>Email</th>
-                <th>Feedback</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>Sarah Ahmed</td>
-                <td>sarah@example.com</td>
-                <td>Great photography service.</td>
-                <td>
-                  <button class="btn btn-secondary">Edit</button>
-                  <button class="btn btn-dark">Delete</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Mohammed Ali</td>
-                <td>mohammed@example.com</td>
-                <td>Professional and friendly team.</td>
-                <td>
-                  <button class="btn btn-secondary">Edit</button>
-                  <button class="btn btn-dark">Delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p>&copy; 2026 Lensora Studio. Admin Panel.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<script>
   const adminLinks = document.querySelectorAll('.admin-gallery-link');
   const adminSections = document.querySelectorAll('.gallery-section');
 
@@ -445,5 +155,6 @@
     });
   });
 </script>
+
 </body>
 </html>
