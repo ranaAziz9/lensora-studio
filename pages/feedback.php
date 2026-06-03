@@ -18,25 +18,11 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <!-- Header: primary navigation -->
-    <header class="site-header">
-        <nav class="site-nav" aria-label="Primary navigation">
-            <div class="container nav-container">
-                <a href="../index.html" class="nav-logo">
-                    <img src="../images/logo.png" alt="Lensora Studio logo">
-                </a>
-                <ul id="primary-nav" class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="work.html">Our Work</a></li>
-                    <li><a href="video.html">Video</a></li>
-                    <li><a href="feedback.html">Feedback</a></li>
-                    <li><a href="pages/auth.html" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<link rel="stylesheet" href="../global/main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+       <!-- Header_nav -->
+<?php include '../includes/header_nav.php'; ?>
 
     <main id="main-content" class="main-content">
         <!-- Hero section: page introduction -->
@@ -152,32 +138,8 @@
         </section>
     </main>
 
-    <!-- Footer: contact and feedback -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Lensora Studio</h3>
-                    <p>Photography and short-form video for people and brands who care about detail.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Feedback</h3>
-                    <p class="footer-feedback"><a href="feedback.html">Client feedback form</a></p>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <address class="footer-address">
-                        Email: <a href="mailto:info@lensora.com">info@lensora.com</a><br>
-                        Phone: <a href="tel:+966500000000">+966 50 000 0000</a><br>
-                        Jeddah, Saudi Arabia
-                    </address>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Lensora Studio. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+   <!-- ================= footer ================= -->
+<?php include __DIR__ . '/../includes/footer.php'; ?>
 
     <!-- Modal section: confirmation message -->
     <div id="feedback-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000;">
@@ -190,33 +152,104 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const feedbackForm = document.getElementById("feedback-form");
-            const modal = document.getElementById("feedback-modal");
-            const closeBtn = document.getElementById("close-feedback");
-            const modalMsg = document.getElementById("modal-msg");
+document.addEventListener("DOMContentLoaded", function () {
 
-            if (feedbackForm) {
-                feedbackForm.addEventListener("submit", function (e) {
-                    e.preventDefault();
+    const feedbackForm = document.getElementById("feedback-form");
+    const modal = document.getElementById("feedback-modal");
+    const closeBtn = document.getElementById("close-feedback");
+    const modalMsg = document.getElementById("modal-msg");
 
-                    const name = document.getElementById("name").value;
-                    modalMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your feedback helps us improve <strong>Lensora Studio</strong>. We appreciate your time.`;
-                    modal.style.display = "flex";
-                });
-            }
+    if (feedbackForm) {
 
-            closeBtn.addEventListener("click", function () {
-                modal.style.display = "none";
-                feedbackForm.reset();
+        feedbackForm.addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById("name").value;
+
+            const email = document.getElementById("email").value;
+
+            const rating =
+                document.querySelector('input[name="rating"]:checked')?.value;
+
+            // Get checked services
+            const services = [];
+
+            document.querySelectorAll('input[name="services"]:checked')
+            .forEach(service => {
+                services.push(service.value);
             });
 
-            window.onclick = function(event) {
-                if (event.target === modal) {
-                    modal.style.display = "none";
+            const stylePreference =
+                document.getElementById("style-preference").value;
+
+            const comments =
+                document.getElementById("comments").value;
+
+            // Send data to PHP API
+            fetch("../api/add-feedback.php", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    name: name,
+                    email: email,
+                    rating: rating,
+                    services: services,
+                    style_preference: stylePreference,
+                    comments: comments
+
+                })
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                if (data.status === "success") {
+
+                    modalMsg.innerHTML =
+                    `Thank you, <strong>${name}</strong>!
+                    Your feedback has been submitted successfully.`;
+
+                    modal.style.display = "flex";
+
+                    feedbackForm.reset();
+
+                } else {
+
+                    alert(data.message);
                 }
-            };
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                alert("Something went wrong.");
+            });
+
         });
-    </script>
-</body>
-</html>
+    }
+
+    closeBtn.addEventListener("click", function () {
+
+        modal.style.display = "none";
+    });
+
+    window.onclick = function(event) {
+
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+
+});
+</script>

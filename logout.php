@@ -2,6 +2,6 @@
 session_start();
 session_destroy();
 
-header("Location: pages/auth.html");
+header("Location: pages/auth.php");
 exit();
 ?>

@@ -19,28 +19,9 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <!-- Header: primary navigation -->
-    <header class="site-header">
-        <nav class="site-nav" aria-label="Primary navigation">
-            <div class="container nav-container">
-                <a href="index.html" class="nav-logo">
-                    <img src="images/logo.png" alt="Lensora Studio logo">
-                </a>
-                <ul id="primary-nav" class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="pages/services.html">Services</a></li>
-                    <li><a href="pages/work.html">Our Work</a></li>
-                    <li><a href="pages/video.html">Video</a></li>
-                    <li><a href="pages/feedback.html">Feedback</a></li>
-                    <li><a href="pages/auth.html" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
-                    <button onclick="location.href='pages/profile.php'">
-My Profile
-</button>
-                </ul>
-            </div>
-        </nav>
-    </header>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   <!-- Header_nav -->
+<?php include 'includes/header_nav.php'; ?>
 
     <main id="main-content" class="main-content">
         <!-- Hero section: main introduction -->
@@ -50,8 +31,8 @@ My Profile
                 <p>Professional photography for weddings, portraits, products, and events. We turn real moments into a clear, lasting visual story.</p>
 
                 <div class="hero-buttons">
-                    <a href="pages/services.html" class="btn btn-primary">Explore services</a>
-                    <a href="pages/work.html" class="btn btn-secondary">See our work</a>
+                    <a href="pages/services.php" class="btn btn-primary">Explore services</a>
+                    <a href="pages/work.php" class="btn btn-secondary">See our work</a>
                 </div>
 
                 <div class="hero-image">
@@ -97,35 +78,7 @@ My Profile
         </section>
     </main>
 
-    <!-- Footer: contact and feedback -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Lensora Studio</h3>
-                    <p>Photography and short-form video for people and brands who care about detail.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Feedback</h3>
-                    <p class="footer-feedback"><a href="pages/feedback.html">Client feedback form</a></p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <address class="footer-address">
-                        Email: <a href="mailto:info@lensora.com">info@lensora.com</a><br>
-                        Phone: <a href="tel:+966500000000">+966 50 000 0000</a><br>
-                        Jeddah, Saudi Arabia
-                    </address>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2026 Lensora Studio. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+   <?php include 'includes/footer.php'; ?>
 
     <script src="scripts/main.js"></script>
 </body>

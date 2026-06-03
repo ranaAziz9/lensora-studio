@@ -20,27 +20,11 @@
 
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <!-- Header: primary navigation -->
-    <header class="site-header">
-        <nav class="site-nav" aria-label="Primary navigation">
-            <div class="container nav-container">
-                <a href="../index.html" class="nav-logo">
-                    <img src="../images/logo.png" alt="Lensora Studio logo">
-                </a>
-
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="work.html">Our Work</a></li>
-                    <li><a href="video.html">Video</a></li>
-                    <li><a href="feedback.html">Feedback</a></li>
-                    <li><a href="pages/auth.html" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<link rel="stylesheet" href="../global/main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Header_nav -->
+<?php include '../includes/header_nav.php'; ?>
     <main id="main-content">
 
         <!-- Page heading -->
@@ -214,25 +198,70 @@
             document.getElementById("selected-date").value = cell.dataset.date;
             document.getElementById("selected-time").value = cell.dataset.time;
         });
+        document.getElementById("booking-form").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-        document.getElementById("booking-form").addEventListener("submit", function(e) {
-            e.preventDefault();
+    const packageText = document.getElementById("selected-package")
+        .textContent
+        .replace("Selected Package: ", "")
+        .trim();
 
-            const name = document.getElementById("name").value;
-            const date = document.getElementById("selected-date").value;
-            const time = document.getElementById("selected-time").value;
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const date = document.getElementById("selected-date").value.trim();
+    const time = document.getElementById("selected-time").value.trim();
 
-            if (!date || !time) {
-                alert("Please select a slot!");
-                return;
-            }
+    // 🔴 VALIDATION FIX
+    if (!packageText || packageText === "—") {
+        alert("Please select a package first!");
+        return;
+    }
 
-            alert(`Booking confirmed for ${name}\n${date} at ${time}`);
-        });
+    if (!date || !time || !name || !email) {
+        alert("Please fill all fields and select a time slot!");
+        return;
+    }
 
-        initMonths();
-        render();
-        monthSelect.addEventListener("change", render);
+    fetch("../api/create-booking.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            package: packageText,
+            date: date,
+            time: time,
+            name: name,
+            email: email
+        })
+    })
+    .then(async res => {
+        const text = await res.text();
+        console.log("RAW RESPONSE:", text);
+        return JSON.parse(text);
+    })
+    .then(data => {
+
+        if (data.status === "success") {
+            alert("Booking saved successfully!");
+
+            document.getElementById("booking-form").reset();
+            document.getElementById("selected-date").value = "";
+            document.getElementById("selected-time").value = "";
+
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error while saving booking");
+    });
+});
+
+initMonths();
+render();
+monthSelect.addEventListener("change", render);
     </script>
 </body>
 </html>

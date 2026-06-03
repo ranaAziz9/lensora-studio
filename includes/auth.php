@@ -9,8 +9,13 @@ function checkLogin() {
 }
 
 function checkAdmin() {
-    if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
+    if (!isset($_SESSION['user_id'])) {
         header("Location: ../login.php");
+        exit();
+    }
+
+    if (($_SESSION['role'] ?? null) !== 'admin') {
+        header("Location: ../index.php?error=unauthorized");
         exit();
     }
 }

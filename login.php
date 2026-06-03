@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
-        $_SESSION['user_role'] = $user['role'];
+        $_SESSION['role'] = $user['role'];
 
         // redirect based on role
         if ($user['role'] === 'admin') {
@@ -28,11 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 
-    header("Location: pages/auth.html?error=invalid&tab=login");
+    header("Location: pages/auth.php?error=invalid&tab=login");
     exit();
 
 } else {
-    header("Location: pages/auth.html");
+    header("Location: pages/auth.php");
     exit();
 }
 ?>

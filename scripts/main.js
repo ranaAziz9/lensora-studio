@@ -264,4 +264,490 @@ function setupServiceAnimations() {
   serviceCards.forEach(function (card) {
     observer.observe(card);
   });
+
+
+}
+
+// =========================
+// Show Login / Register Tabs
+// =========================
+function showForm(type) {
+    let forms = document.querySelectorAll("form");
+    let btnLogin = document.getElementById("tab-login-btn");
+    let btnRegister = document.getElementById("tab-register-btn");
+
+    forms.forEach(f => f.classList.remove("active"));
+
+    if (btnLogin) btnLogin.classList.remove("active");
+    if (btnRegister) btnRegister.classList.remove("active");
+
+    const activeForm = document.getElementById(type);
+    if (activeForm) activeForm.classList.add("active");
+
+    if (type === 'login') {
+        btnLogin?.classList.add("active");
+    } else {
+        btnRegister?.classList.add("active");
+    }
+}
+
+
+// =========================
+// Handle URL Messages
+// =========================
+document.addEventListener("DOMContentLoaded", function () {
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const error = urlParams.get('error');
+    const success = urlParams.get('success');
+    const tab = urlParams.get('tab');
+
+    const errorBox = document.getElementById("error-alert");
+    const successBox = document.getElementById("success-alert");
+
+    // show correct tab
+    if (tab) showForm(tab);
+
+    // =========================
+    // ERROR HANDLING
+    // =========================
+    if (error && errorBox) {
+        errorBox.style.display = "block";
+
+        if (error === 'invalid') {
+            errorBox.innerText = "Invalid email or password ❌";
+        }
+        else if (error === 'exists') {
+            errorBox.innerText = "Email already exists ⚠️";
+        }
+        else if (error === 'empty') {
+            errorBox.innerText = "Please fill all fields ⚠️";
+        }
+        else if (error === 'weakpassword') {
+            errorBox.innerText =
+                "Password is too weak ❌ Must be 8+ characters, include uppercase, lowercase, number & symbol.";
+        }
+        else if (error === 'invalidname') {
+            errorBox.innerText = "Name must contain letters only ❌";
+        }
+        else if (error === 'invalidemail') {
+            errorBox.innerText = "Invalid email format ❌";
+        }
+    }
+
+    // =========================
+    // SUCCESS HANDLING
+    // =========================
+    if (success === 'registered' && successBox) {
+        successBox.style.display = "block";
+        successBox.innerText = "Account created successfully ✔️";
+    }
+});
+
+
+// =========================
+// Toggle Password Visibility
+// =========================
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+
+    if (!input) return;
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+
+//Invalid email format
+const params = new URLSearchParams(window.location.search);
+
+const errorAlert = document.getElementById("error-alert");
+const successAlert = document.getElementById("success-alert");
+
+if (params.get("error") === "invalidemail") {
+    errorAlert.textContent = "Invalid email format.";
+    errorAlert.style.display = "block";
+}
+
+/* =========================
+   ADMIN SERVICES ACTIONS
+========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".edit-service-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+
+      const id = btn.getAttribute("data-id");
+      const title = btn.getAttribute("data-title");
+      const description = btn.getAttribute("data-description");
+      const price = btn.getAttribute("data-price");
+
+      const serviceId = document.getElementById("service_id");
+      const serviceTitle = document.getElementById("service_title");
+      const serviceDescription = document.getElementById("service_description");
+      const servicePrice = document.getElementById("service_price");
+      const formTitle = document.getElementById("service-form-title");
+
+      if (!serviceId || !serviceTitle || !serviceDescription || !servicePrice || !formTitle) {
+        return;
+      }
+
+      serviceId.value = id;
+      serviceTitle.value = title;
+      serviceDescription.value = description;
+      servicePrice.value = price;
+
+      formTitle.innerText = "Edit Service";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    });
+  });
+
+  document.querySelectorAll(".delete-service-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const id = btn.getAttribute("data-id");
+      deleteService(id);
+    });
+  });
+
+});
+
+function resetServiceForm() {
+  const serviceId = document.getElementById("service_id");
+  const serviceTitle = document.getElementById("service_title");
+  const serviceDescription = document.getElementById("service_description");
+  const servicePrice = document.getElementById("service_price");
+  const formTitle = document.getElementById("service-form-title");
+
+  if (!serviceId || !serviceTitle || !serviceDescription || !servicePrice || !formTitle) {
+    return;
+  }
+
+  serviceId.value = "";
+  serviceTitle.value = "";
+  servicePrice.value = "";
+  serviceDescription.value = "";
+  formTitle.innerText = "Add New Service";
+}
+
+function saveService() {
+  const serviceId = document.getElementById("service_id");
+  const serviceTitle = document.getElementById("service_title");
+  const serviceDescription = document.getElementById("service_description");
+  const servicePrice = document.getElementById("service_price");
+
+  if (!serviceId || !serviceTitle || !serviceDescription || !servicePrice) {
+    return;
+  }
+
+  const data = {
+    id: serviceId.value,
+    title: serviceTitle.value,
+    description: serviceDescription.value,
+    price: servicePrice.value
+  };
+
+  const url = data.id ? "../api/update-service.php" : "../api/add-service.php";
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (res) {
+    alert(res.message || "Saved successfully");
+    location.reload();
+  })
+  .catch(function () {
+    alert("Something went wrong while saving.");
+  });
+}
+
+function deleteService(id) {
+  if (!confirm("Delete this service?")) {
+    return;
+  }
+
+  fetch("../api/delete-service.php?id=" + encodeURIComponent(id))
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (res) {
+      alert(res.message || "Deleted successfully");
+      location.reload();
+    })
+    .catch(function () {
+      alert("Something went wrong while deleting.");
+    });
+}
+
+/* =========================
+   ADMIN PACKAGES ACTIONS
+========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".delete-package-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const id = btn.getAttribute("data-id");
+      deletePackage(id);
+    });
+  });
+
+});
+
+function addPackage() {
+  const nameInput = document.getElementById("pkg_name");
+  const priceInput = document.getElementById("pkg_price");
+  const slugInput = document.getElementById("pkg_slug");
+  const descInput = document.getElementById("pkg_desc");
+
+  if (!nameInput || !priceInput || !slugInput || !descInput) {
+    return;
+  }
+
+  const data = {
+    package_name: nameInput.value,
+    price: priceInput.value,
+    slug: slugInput.value,
+    description: descInput.value
+  };
+
+  fetch("../api/add-package.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (res) {
+    alert(res.message || "Package added successfully");
+    location.reload();
+  })
+  .catch(function () {
+    alert("Something went wrong while adding package.");
+  });
+}
+
+function deletePackage(id) {
+  if (!confirm("Delete this package?")) {
+    return;
+  }
+
+  fetch("../api/delete-package.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ id: id })
+  })
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (res) {
+    alert(res.message || "Package deleted successfully");
+    location.reload();
+  })
+  .catch(function () {
+    alert("Something went wrong while deleting package.");
+  });
+}
+
+/* =========================
+   ADMIN BOOKINGS ACTIONS
+========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".update-booking-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const id = btn.getAttribute("data-id");
+      const status = btn.getAttribute("data-status");
+      updateBookingStatus(id, status);
+    });
+  });
+
+  document.querySelectorAll(".delete-booking-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const id = btn.getAttribute("data-id");
+      deleteBooking(id);
+    });
+  });
+
+  document.querySelectorAll(".booking-filter-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const status = btn.getAttribute("data-status");
+      filterBookingCards(status);
+    });
+  });
+
+});
+
+function updateBookingStatus(id, status) {
+  fetch("../api/update-booking-status.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      id: id,
+      status: status
+    })
+  })
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (res) {
+    alert(res.message || "Booking updated");
+    location.reload();
+  })
+  .catch(function () {
+    alert("Something went wrong while updating booking.");
+  });
+}
+
+function deleteBooking(id) {
+  if (!confirm("Delete this booking?")) {
+    return;
+  }
+
+  fetch("../api/delete-booking.php?id=" + encodeURIComponent(id))
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (res) {
+      alert(res.message || "Booking deleted");
+      location.reload();
+    })
+    .catch(function () {
+      alert("Something went wrong while deleting booking.");
+    });
+}
+
+function filterBookingCards(status) {
+  document.querySelectorAll(".booking-card").forEach(function (card) {
+    const cardStatus = card.getAttribute("data-status");
+
+    if (status === "all" || status === cardStatus) {
+      card.style.display = "";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+
+/* =========================
+   ADMIN FEEDBACK ACTIONS
+========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".delete-feedback-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const id = btn.getAttribute("data-id");
+      deleteFeedback(id);
+    });
+  });
+
+  const feedbackSearch = document.getElementById("feedback-search");
+
+  if (feedbackSearch) {
+    feedbackSearch.addEventListener("input", function () {
+      searchFeedback(feedbackSearch.value);
+    });
+  }
+
+});
+
+function deleteFeedback(id) {
+  if (!confirm("Delete this feedback?")) {
+    return;
+  }
+
+  fetch("../api/delete-feedback.php?id=" + encodeURIComponent(id))
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (res) {
+      alert(res.message || "Feedback deleted successfully");
+      location.reload();
+    })
+    .catch(function () {
+      alert("Something went wrong while deleting feedback.");
+    });
+}
+
+function searchFeedback(searchValue) {
+  const container = document.getElementById("feedback-results");
+
+  if (!container) {
+    return;
+  }
+
+  fetch("../api/search-feedback.php?search=" + encodeURIComponent(searchValue))
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      let html = "";
+
+      if (!data.length) {
+        html = "<p>No feedback found.</p>";
+      } else {
+        data.forEach(function (item) {
+          html += `
+            <div class="card feedback-card">
+
+              <h3 class="card-title">${escapeFeedbackHtml(item.client_name || "")}</h3>
+
+              <p class="card-text"><strong>Email:</strong> ${escapeFeedbackHtml(item.email || "")}</p>
+              <p class="card-text"><strong>Rating:</strong> ${escapeFeedbackHtml(item.rating || "")}</p>
+              <p class="card-text"><strong>Services:</strong> ${escapeFeedbackHtml(item.services_used || "")}</p>
+              <p class="card-text"><strong>Style:</strong> ${escapeFeedbackHtml(item.style_preference || "")}</p>
+              <p class="card-text"><strong>Comments:</strong> ${escapeFeedbackHtml(item.comments || "")}</p>
+
+              <button
+                type="button"
+                class="btn btn-dark btn-full"
+                onclick="deleteFeedback('${item.id}')"
+              >
+                Delete
+              </button>
+
+            </div>
+          `;
+        });
+      }
+
+      container.innerHTML = html;
+    });
+}
+
+function escapeFeedbackHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }

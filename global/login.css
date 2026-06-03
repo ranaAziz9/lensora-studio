@@ -1,0 +1,186 @@
+/* =========================
+   AUTH PAGE - LENSORA STYLE (ORIGINAL MATCH)
+   ========================= */
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--light-gray);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* container */
+.auth-container {
+    width: 420px;
+    background: #8f79b8;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 12px 35px rgba(107, 91, 149, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 5px solid var(--black);
+}
+
+/* logo */
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 140px;
+}
+
+/* tabs */
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--gray);
+}
+
+.tabs button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    background: var(--light-gray);
+    color: var(--text-light);
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.tabs button.active {
+    background: var(--primary-purple);
+    color: var(--white);
+}
+
+/* forms */
+form {
+    display: none;
+    flex-direction: column;
+}
+
+form.active {
+    display: flex;
+}
+
+/* inputs */
+input {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--gray);
+    background: var(--white);
+    color: var(--text-dark);
+    outline: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+input:focus {
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 3px rgba(155, 126, 189, 0.15);
+}
+
+/* submit */
+button.submit {
+    padding: 12px;
+    background: var(--primary-purple);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+button.submit:hover {
+    background: var(--dark-purple);
+    transform: translateY(-2px);
+}
+
+/* password rules */
+.password-rules {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(143, 120, 184, 0.2);
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    backdrop-filter: blur(6px);
+}
+
+.rules-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--dark-purple);
+    font-size: 12.5px;
+}
+
+.password-rules ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.password-rules li {
+    margin-bottom: 4px;
+    color: var(--text-light);
+}
+
+/* bottom text */
+.small-text {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 15px;
+    color: var(--text-light);
+}
+
+/* alerts */
+.alert {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+.alert-success {
+    background: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+/* password box */
+.password-box {
+    position: relative;
+    width: 100%;
+}
+
+.password-box input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+/* eye icon */
+.toggle-password {
+    cursor: pointer;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+}
