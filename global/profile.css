@@ -1,24 +1,40 @@
 :root {
-    --primary-purple: #8f79b8;
-    --dark-purple: #6d5b98;
-    --light-bg: #f5f3f8;
-    --card: #ffffff;
+    /* Core Lensora Theme */
+    --lensora-purple: #8f79b8;
+    --lensora-dark: #6d5b98;
+    --lensora-light: #f5f3f8;
+
+    --lensora-white: #ffffff;
+    --lensora-black: #1a1a1a;
+    --lensora-soft-black: #444;
+
+    --lensora-border: rgba(0,0,0,0.06);
 }
+
+/* ================= BASE ================= */
 
 body {
     margin: 0;
-    background: var(--light-bg);
+    background: var(--lensora-light);
     font-family: Arial, sans-serif;
+    color: var(--lensora-black);
 }
 
+/* ================= PROFILE LAYOUT ================= */
+
+/* Creates a clean vertical stack for both cards */
 .profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; 
     max-width: 850px;
     margin: 70px auto;
-    padding: 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .profile-card {
-    background: var(--card);
+    background: var(--lensora-white);
     padding: 40px;
     border-radius: 18px;
     box-shadow: 0 10px 25px rgba(143,121,184,0.15);
@@ -35,7 +51,7 @@ body {
     width: 85px;
     height: 85px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+    background: linear-gradient(135deg, var(--lensora-purple), var(--lensora-dark));
     color: white;
     display: flex;
     align-items: center;
@@ -46,7 +62,7 @@ body {
 
 h2 {
     margin: 0;
-    color: var(--dark-purple);
+    color: var(--lensora-dark);
 }
 
 .form-group {
@@ -58,7 +74,7 @@ label {
     margin-bottom: 8px;
     font-weight: 600;
     font-size: 0.9rem;
-    color: var(--dark-purple);
+    color: var(--lensora-dark);
 }
 
 input {
@@ -72,4 +88,297 @@ input {
 input:disabled {
     background: #f2f2f2;
     color: #666;
+}
+
+.account-badge {
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.privilege-text {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.admin-text { color: var(--lensora-purple); }
+.standard-text { color: #777; }
+
+
+/* ================= LENSORA APPOINTMENTS CARD ================= */
+
+.lensora-card {
+    background: var(--lensora-white);
+    border-radius: 18px;
+    padding: 40px;
+    box-shadow: 0 10px 25px rgba(143,121,184,0.15);
+    border: 1px solid var(--lensora-border);
+    box-sizing: border-box;
+}
+
+/* HEADER ELEMENTS */
+.lensora-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #f0f0f2;
+    padding-bottom: 20px;
+}
+
+.lensora-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--lensora-black);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lensora-header h3 i {
+    color: var(--lensora-purple);
+}
+
+.lensora-header .subtext {
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.booking-count {
+    background: linear-gradient(135deg, var(--lensora-purple), var(--lensora-dark));
+    color: white;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* TABLE CORE STRUCTURE */
+.lensora-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.lensora-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px; /* Spacing between floating rows */
+}
+
+/* FIXED TABLE HEADER RULES */
+.lensora-table thead th {
+    background: var(--lensora-dark);
+    color: white;
+    padding: 14px 18px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    border: none;
+}
+
+/* Rounded corners for the dark header block */
+.lensora-table thead th:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.lensora-table thead th:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* FIXED DATA CELL RULES (Applies styling to cells inside rows) */
+.lensora-table td {
+    padding: 18px;
+    color: var(--lensora-soft-black);
+    vertical-align: middle;
+    border-top: 1px solid rgba(0,0,0,0.03);
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+    background: var(--lensora-white);
+}
+
+/* Gives the floating rows their background depth, shadow, and soft hover effect */
+.lensora-row td {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    transition: all 0.25s ease;
+}
+
+.lensora-row td:first-child {
+    border-left: 1px solid rgba(0,0,0,0.03);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.lensora-row td:last-child {
+    border-right: 1px solid rgba(0,0,0,0.03);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Row Hover Interaction */
+.lensora-row:hover td {
+    background: #faf9fc;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(143,121,184,0.12);
+}
+
+/* PACKAGE BAR & ALIGNMENT */
+.pkg-cell {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.pkg-bar {
+    width: 4px;
+    height: 28px;
+    display: inline-block;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--lensora-purple), var(--lensora-dark));
+    flex-shrink: 0;
+}
+
+.pkg-cell strong {
+    color: var(--lensora-black);
+    font-weight: 600;
+}
+
+.client-cell {
+    font-weight: 500;
+}
+
+/* DATE & TIME PRESENTATION */
+.datetime-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.date-block {
+    font-weight: 600;
+    color: var(--lensora-black);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+
+.time-block {
+    font-size: 0.85rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.date-block i, .time-block i {
+    color: var(--lensora-purple);
+    width: 14px;
+}
+
+/* PREMIUM STATUS BADGES */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.status-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Dynamic State Status Color Variables */
+.status-pending {
+    background: #f3e9ff;
+    color: var(--lensora-purple);
+}
+.status-pending .dot { background-color: var(--lensora-purple); }
+
+/* Approved State */
+.status-approved {
+    background: #e7f7ef;
+    color: #1f8a4c;
+}
+.status-approved .dot { background-color: #1f8a4c; }
+
+/* Rejected State */
+.status-rejected {
+    background: #ffe9ec;
+    color: #c0392b;
+}
+.status-rejected .dot { background-color: #c0392b; }
+
+
+/* ================= EMPTY STATE WINDOW ================= */
+
+.lensora-empty {
+    text-align: center;
+    padding: 50px 20px;
+    background: var(--lensora-white);
+    border-radius: 16px;
+}
+
+.empty-icon-wrap {
+    font-size: 3.5rem;
+    color: var(--lensora-purple);
+    margin-bottom: 15px;
+}
+
+.lensora-empty h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.25rem;
+    color: var(--lensora-black);
+}
+
+.lensora-empty p {
+    color: #666;
+    max-width: 450px;
+    margin: 0 auto 20px auto;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.lensora-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--lensora-purple);
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+    box-shadow: 0 4px 12px rgba(143,121,184,0.2);
+}
+
+.lensora-btn:hover {
+    background: var(--lensora-dark);
+}
+
+/* ================= RESPONSIVE VIEWPORTS ================= */
+
+@media (max-width: 768px) {
+    .profile-wrapper {
+        margin: 30px auto;
+    }
+    .profile-card, .lensora-card {
+        padding: 25px 20px;
+    }
+    .lensora-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
 }

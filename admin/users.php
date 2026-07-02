@@ -1,8 +1,23 @@
+<!--
+  Name: Amirah Almutairi
+  Name: Rana Alzaharni
+  Name: Rama Aseeri
+  ID: 2205930
+  ID: 2206360
+  ID: 2206257
+  Section: DAR
+  Date: 5/6/2026
+-->
+
 <?php
 require_once '../includes/auth.php';
+
+// Allow only admins to access this page
 checkAdmin();
+
 require_once "../includes/db.php";
 
+// Retrieve all users from database
 $stmt = $pdo->query("SELECT id, name, email, role FROM users ORDER BY id DESC");
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -21,12 +36,14 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
 
+<!-- Accessibility skip link -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <?php include '../includes/header_nav.php'; ?>
 
 <main id="main-content" class="main-content">
 
+<!-- Page header section -->
 <section class="hero hero-compact">
 <div class="container">
 <h1>Users Management</h1>
@@ -44,6 +61,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="form-panel table-responsive">
 
+<!-- Users table -->
 <table class="booking-table users-table">
 <thead>
 <tr>
@@ -56,42 +74,63 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </thead>
 
 <tbody>
+
+<!-- Display each user -->
 <?php foreach ($users as $user): ?>
 <tr>
+
 <td><?= htmlspecialchars($user['id']) ?></td>
 <td><?= htmlspecialchars($user['name']) ?></td>
 <td><?= htmlspecialchars($user['email']) ?></td>
 
 <td>
+
+<!-- Show role badge -->
 <?php if ($user['role'] === 'admin'): ?>
 <span class="badge-admin">Admin</span>
 <?php else: ?>
 <span class="badge-user">User</span>
 <?php endif; ?>
+
 </td>
 
 <td>
+
+<!-- Prevent admin from changing their own role -->
 <?php if ($user['id'] != $_SESSION['user_id']): ?>
 
+<!-- Form for updating user role -->
 <form action="update-role.php" method="POST" class="inline-form">
+
 <input type="hidden" name="user_id" value="<?= htmlspecialchars($user['id']) ?>">
 
 <?php if ($user['role'] === 'user'): ?>
+
+<!-- Promote user to admin -->
 <input type="hidden" name="new_role" value="admin">
 <button type="submit" class="btn btn-secondary">Make Admin</button>
+
 <?php else: ?>
+
+<!-- Remove admin privileges -->
 <input type="hidden" name="new_role" value="user">
 <button type="submit" class="btn btn-dark">Remove Admin</button>
+
 <?php endif; ?>
 
 </form>
 
 <?php else: ?>
+
+<!-- Current logged-in admin -->
 <span class="text-muted">Current Admin</span>
+
 <?php endif; ?>
+
 </td>
 </tr>
 <?php endforeach; ?>
+
 </tbody>
 </table>
 

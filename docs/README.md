@@ -1,129 +1,388 @@
-# Lensora Photography Studio Website
+# Lensora Studio Management System
 
-A modern, responsive photography studio website built with pure HTML, CSS, and JavaScript.
-
-## Features
-
-✨ **Modern Design** - Light purple and black color scheme with smooth animations
-📱 **Responsive** - Works perfectly on desktop, tablet, and mobile devices
-🎨 **Professional UI** - Clean, modern interface with hover effects and transitions
-📋 **Booking System** - Interactive schedule with table using rowspan and colspan
-📝 **Feedback Form** - Comprehensive form with validation
-🎥 **Video Support** - Embedded video player and video services showcase
-🖼️ **Gallery** - Beautiful image gallery with hover effects
-
-## Pages
-
-1. **Home** (index.html) - Introduction and portfolio preview
-2. **Services** (pages/services.html) - Detailed service offerings with pricing
-3. **Schedule** (pages/schedule.html) - Interactive booking table with available time slots
-4. **Video** (pages/video.html) - Video services and embedded video player
-5. **Feedback** (pages/feedback.html) - Comprehensive feedback form with validation
-6. **Work** (pages/work.html) - Portfolio galleries hub
-7. **Portrait** (pages/portrait.html) - Portrait photography gallery
-8. **Events** (pages/events.html) - Event photography gallery
-9. **Wedding** (pages/wedding.html) - Wedding photography gallery
-10. **Product** (pages/product.html) - Product photography gallery
-11. **Packages** (pages/packages.html) - Service packages overview
-
-## Form Elements
-
-The feedback form includes:
-- **Text Fields**: Name, Email
-- **Radio Buttons**: Rating (Good, Average, Poor)
-- **Checkboxes**: Services (Portrait, Graduation, Product, Events, Video)
-- **Dropdown**: Preferred contact method
-- **Textarea**: Additional comments
-- **Form Validation**: JavaScript validation for required fields
-
-## Booking Table Features
-
-- Uses `<table>` with semantic HTML
-- Implements `rowspan` for week labels
-- Implements `colspan` for day headers
-- Interactive time slots (available/booked/selected states)
-- Click to select functionality with JavaScript
-
-## File Structure
-
-```
-lensora-studio/
-├── index.html           # Home page
-├── pages/
-│   ├── services.html        # Services page
-│   ├── schedule.html        # Booking schedule page
-│   ├── video.html          # Video page
-│   ├── feedback.html       # Feedback form page
-│   ├── work.html           # Portfolio galleries hub
-│   ├── portrait.html        # Portrait photography gallery
-│   ├── events.html         # Event photography gallery
-│   ├── wedding.html        # Wedding photography gallery
-│   ├── product.html        # Product photography gallery
-│   └── packages.html       # Service packages overview
-├── css/
-│   └── style.css       # Main stylesheet
-├── js/
-│   └── script.js       # JavaScript functionality
-└── README.md           # This file
-```
-
-## How to Use
-
-1. Extract all files to a folder
-2. Open `index.html` in your web browser
-3. Navigate between pages using the navigation menu
-4. Test the interactive features:
-   - Click time slots in the schedule
-   - Submit the feedback form
-   - Watch the embedded video
-
-## Color Scheme
-
-- **Primary Purple**: #9b7ebd
-- **Light Purple**: #d4c5e2
-- **Dark Purple**: #6b5b95
-- **Black**: #1a1a1a
-- **White**: #ffffff
-
-## Fonts
-
-- **Display Font**: Playfair Display (headings)
-- **Body Font**: Poppins (text content)
-
-## Browser Compatibility
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers
-
-## Features Implemented
-
-✅ Semantic HTML structure
-✅ Responsive CSS design
-✅ JavaScript interactivity
-✅ Form validation
-✅ Table with rowspan and colspan
-✅ Interactive booking system
-✅ Video player
-✅ Gallery with hover effects
-✅ Navigation with active states
-✅ Footer with copyright symbol (&copy;)
-
-## Customization
-
-To customize the website:
-
-1. **Colors**: Edit CSS variables in `css/style.css`
-2. **Content**: Update text in HTML files
-3. **Images**: Replace image URLs with your own
-4. **Contact Info**: Update email and phone numbers
-
-## License
-
-This website is free to use and modify for personal or commercial purposes.
+A full-stack photography studio management system built with PHP, MySQL, JavaScript, HTML, and CSS.
 
 ---
 
-Created with ❤️ by Lensora Studio
+## Overview
+
+Lensora Studio is a complete photography studio website and management platform that allows customers to browse services, book photography sessions, submit feedback, and view galleries, while administrators can manage bookings, users, content, and media through a secure admin dashboard.
+
+---
+
+## Features
+
+### Customer Features
+
+* User registration and login
+* Secure authentication using PHP sessions
+* Browse photography services and packages
+* Interactive booking system
+* Real-time appointment slot availability
+* Feedback submission system
+* Dynamic photography galleries
+* Video portfolio showcase
+* Responsive design for desktop and mobile
+
+### Admin Features
+
+* Admin dashboard
+* Manage bookings
+* Approve or reject bookings
+* Delete bookings
+* Manage feedback submissions
+* Manage service packages
+* Manage photography services
+* Manage users and roles
+* Upload gallery images
+* Delete gallery images
+* Manage videos
+* Search and filter records
+
+---
+
+## Database Tables
+
+### users
+
+Stores registered user accounts.
+
+Fields include:
+
+* id
+* name
+* email
+* password
+* role
+* created_at
+
+### bookings
+
+Stores customer booking requests.
+
+Fields include:
+
+* id
+* name
+* email
+* package
+* booking_date
+* booking_time
+* status
+* created_at
+
+### feedbacks
+
+Stores customer feedback submissions.
+
+Fields include:
+
+* id
+* name
+* email
+* rating
+* comments
+* created_at
+
+### services
+
+Stores photography service offerings.
+
+Fields include:
+
+* id
+* title
+* description
+* price
+* created_at
+
+### packages
+
+Stores photography packages.
+
+Fields include:
+
+* id
+* package_name
+* description
+* price
+* created_at
+
+### gallery_images
+
+Stores gallery image information.
+
+Fields include:
+
+* id
+* category
+* image_path
+* created_at
+
+### site_videos
+
+Stores video portfolio content.
+
+Fields include:
+
+* id
+* title
+* video_url
+* created_at
+
+---
+
+## Authentication System
+
+The application includes:
+
+* User Registration
+* User Login
+* Session Management
+* Logout Functionality
+* Role-Based Access Control
+* Admin Authorization Checks
+
+Authentication is implemented using PHP sessions and password hashing.
+
+---
+
+## API Endpoints
+
+### Feedback APIs
+
+* add-feedback.php
+* delete-feedback.php
+* search-feedback.php
+* get-feedback.php
+
+### Package APIs
+
+* add-package.php
+* delete-package.php
+* search-package.php
+* get-package.php
+
+### Service APIs
+
+* add-service.php
+* delete-service.php
+* update-service.php
+* search-service.php
+* get-service.php
+
+### Booking APIs
+
+* create-booking.php
+* get-booking.php
+* update-booking-status.php
+* get-booked-slots.php
+
+---
+
+## Admin Panel Pages
+
+### dashboard.php
+
+Main administration dashboard.
+
+### bookings-manage.php
+
+Manage customer bookings.
+
+Features:
+
+* Approve bookings
+* Reject bookings
+* Delete bookings
+* Filter by status
+
+### feedback-manage.php
+
+Manage customer feedback.
+
+### services-manage.php
+
+Manage photography services.
+
+### packages-manage.php
+
+Manage photography packages.
+
+### users.php
+
+Manage users and roles.
+
+### update-role.php
+
+Update user permissions.
+
+### gallery-manage.php
+
+Manage gallery images.
+
+### upload-gallery.php
+
+Upload new gallery images.
+
+### delete-gallery.php
+
+Delete gallery images.
+
+### videos-manage.php
+
+Manage video portfolio content.
+
+### delete-video.php
+
+Delete uploaded videos.
+
+---
+
+## Public Pages
+
+### index.php
+
+Home page.
+
+### login.php
+
+User login page.
+
+### register.php
+
+User registration page.
+
+### services.php
+
+Photography services page.
+
+### packages.php
+
+Photography packages page.
+
+### schedule.php
+
+Booking schedule page.
+
+### feedback.php
+
+Customer feedback page.
+
+### video.php
+
+Video showcase page.
+
+### work.php
+
+Photography portfolio gallery.
+
+---
+
+## File Structure
+
+lensora/
+
+├── admin/
+│   ├── dashboard.php
+│   ├── bookings-manage.php
+│   ├── feedback-manage.php
+│   ├── services-manage.php
+│   ├── packages-manage.php
+│   ├── users.php
+│   ├── update-role.php
+│   ├── gallery-manage.php
+│   ├── upload-gallery.php
+│   ├── delete-gallery.php
+│   ├── videos-manage.php
+│   └── delete-video.php
+│
+├── api/
+│   ├── add-feedback.php
+│   ├── delete-feedback.php
+│   ├── search-feedback.php
+│   ├── get-feedback.php
+│   ├── add-package.php
+│   ├── delete-package.php
+│   ├── search-package.php
+│   ├── get-package.php
+│   ├── add-service.php
+│   ├── delete-service.php
+│   ├── update-service.php
+│   ├── search-service.php
+│   ├── get-service.php
+│   ├── create-booking.php
+│   ├── get-booking.php
+│   ├── update-booking-status.php
+│   └── get-booked-slots.php
+│
+├── includes/
+│   ├── auth.php
+│   ├── db.php
+│   ├── header_nav.php
+│   └── footer.php
+│
+├── pages/
+│   ├── services.php
+│   ├── packages.php
+│   ├── schedule.php
+│   ├── feedback.php
+│   ├── video.php
+│   └── work.php
+│
+├── global/
+│   ├── main.css
+│   ├── profile.css
+│   └── print.css
+│
+├── scripts/
+│   └── main.js
+│
+├── uploads/
+│
+├── login.php
+├── register.php
+├── index.php
+└── README.md
+
+---
+
+## Technologies Used
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript (Vanilla JS)
+* Font Awesome
+
+### Backend
+
+* PHP 8+
+
+### Database
+
+* MySQL
+
+### Server Environment
+
+* Apache
+* XAMPP /MAMP
+
+---
+
+## Security Features
+
+* Password hashing
+* Session authentication
+* Prepared SQL statements
+* Role-based authorization
+* File upload validation
+* Input validation and sanitization
+* XSS protection using htmlspecialchars()
+
+---
+
+
+
+© 2026 Lensora Studio. All Rights Reserved.

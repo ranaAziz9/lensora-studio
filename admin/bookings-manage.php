@@ -1,8 +1,22 @@
+
+<!--
+  Name: Amirah Almutairi
+  Name: Rana Alzaharni
+  Name: Rama Aseeri
+  ID: 2205930
+  ID: 2206360
+  ID: 2206257
+  Section: DAR
+  Date: 5/6/2026
+-->
 <?php
 require_once '../includes/auth.php';
+// Restricts access to administrators only and redirects unauthorized users.
 checkAdmin();
+// Connect to the database.
 require_once "../includes/db.php";
 
+// Retrieve all bookings from the database and sort them by latest first.
 $stmt = $pdo->query("SELECT * FROM bookings ORDER BY id DESC");
 $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -23,6 +37,8 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
+
+<!-- Include the shared navigation header -->
 <?php include '../includes/header_nav.php'; ?>
 
 <main id="main-content" class="main-content">
@@ -41,7 +57,7 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <h2>Bookings Management</h2>
 <div class="accent-line"></div>
 </div>
-
+<!-- Booking status filter buttons -->
 <div class="booking-filter-actions">
 <button type="button" class="btn btn-primary booking-filter-btn" data-status="all">All</button>
 <button type="button" class="btn btn-secondary booking-filter-btn" data-status="pending">Pending</button>
@@ -51,9 +67,10 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="grid admin-grid">
 
+<!-- Check if there are any bookings to display -->
 <?php if (count($bookings) > 0): ?>
-
-<?php foreach ($bookings as $booking): ?>
+<!-- Loop through all bookings and display their details -->
+    <?php foreach ($bookings as $booking): ?>
 
 <div
 class="card booking-card"
@@ -79,13 +96,13 @@ data-status="<?= htmlspecialchars($booking["status"], ENT_QUOTES) ?>"
 <p class="card-text">
 <strong>Time:</strong> <?= htmlspecialchars($booking["booking_time"]) ?>
 </p>
-
+<!-- Display the current booking status -->
 <p class="booking-status booking-status-<?= htmlspecialchars($booking["status"]) ?>">
 Status: <?= htmlspecialchars($booking["status"]) ?>
 </p>
 
 <div class="admin-card-actions booking-actions">
-
+<!-- Button to approve a booking -->
 <button
 type="button"
 class="btn btn-primary update-booking-btn"
@@ -95,15 +112,7 @@ data-status="approved"
 Approve
 </button>
 
-<button
-type="button"
-class="btn btn-secondary update-booking-btn"
-data-id="<?= htmlspecialchars($booking["id"], ENT_QUOTES) ?>"
-data-status="pending"
->
-Pending
-</button>
-
+<!-- Button to reject a booking -->
 <button
 type="button"
 class="btn btn-dark update-booking-btn"
@@ -114,7 +123,7 @@ Reject
 </button>
 
 </div>
-
+<!-- Button to permanently delete a booking -->
 <button
 type="button"
 class="btn btn-dark btn-full delete-booking-btn"
@@ -126,7 +135,7 @@ Delete
 </div>
 
 <?php endforeach; ?>
-
+<!-- Display a message when no bookings are available -->
 <?php else: ?>
 
 <p>No bookings found.</p>
@@ -139,9 +148,9 @@ Delete
 </section>
 
 </main>
-
+<!-- Include the shared footer -->
 <?php include __DIR__ . '/../includes/footer.php'; ?>
-
+<!-- Load JavaScript for booking actions and page interactions -->
 <script src="../scripts/main.js"></script>
 
 </body>

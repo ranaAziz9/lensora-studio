@@ -1,8 +1,18 @@
+<!--
+  Name: Amirah Almutairi
+  Name: Rana Alzaharni
+  Name: Rama Aseeri
+  ID: 2205930
+  ID: 2206360
+  ID: 2206257
+  Section: DAR
+  Date: 5/6/2026
+-->
 <?php
 require_once '../includes/auth.php';
 checkAdmin();
 require_once "../includes/db.php";
-
+// Retrieve all feedback records ordered by newest first.
 $stmt = $pdo->query("SELECT * FROM feedback ORDER BY id DESC");
 $feedbacks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -23,9 +33,13 @@ $feedbacks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
+<!-- Include the shared navigation header -->
+
 <?php include '../includes/header_nav.php'; ?>
 
 <main id="main-content" class="main-content">
+
+<!-- Feedback management page header -->
 
 <section class="hero hero-compact">
 <div class="container">
@@ -33,7 +47,7 @@ $feedbacks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <p>Search and delete client feedback.</p>
 </div>
 </section>
-
+<!-- Main feedback management section -->
 <section class="section-alt">
 <div class="container">
 
@@ -41,6 +55,7 @@ $feedbacks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <h2>Feedback Management</h2>
 <div class="accent-line"></div>
 </div>
+<!-- Search input for filtering feedback by client name -->
 
 <div class="form-card">
 <input
@@ -50,11 +65,12 @@ class="input"
 placeholder="Search feedback by client name"
 >
 </div>
+<!-- Container where feedback records are displayed -->
 
 <div id="feedback-results" class="grid admin-grid">
-
+// Check if there are feedback records to display.
 <?php if (count($feedbacks) > 0): ?>
-
+// Loop through each feedback record and display its details.
 <?php foreach ($feedbacks as $item): ?>
 
 <div class="card feedback-card">

@@ -106,8 +106,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>Your account has been created successfully.</p>
             <p>Thank you for joining Lensora Studio.</p>
         ";
+// Send email to user after successful registration
+$mailSent = sendMail($email, $subject, $body);
 
-        sendMail($email, $subject, $body);
+// Error handling: if email fails, redirect user to error page with message
+if (!$mailSent) {
+    header("Location: pages/auth.php?error=mailfailed&tab=register");
+    exit();
+}
 
         // =========================
         // 10. SUCCESS REDIRECT
@@ -125,3 +131,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 }
 ?>
+<script src="main.js"></script>
