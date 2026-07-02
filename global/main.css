@@ -3496,6 +3496,7 @@ footer {
     .why-text .quote-panel {
       max-width: 100%;
     }
+<<<<<<< HEAD
   }
   @media (max-width: 768px) {
     .about-grid {
@@ -3872,3 +3873,9 @@ footer {
 }
 
 
+=======
+
+
+  }
+
+>>>>>>> 85d1596fa74e6d08e50182731c676513bc9b7f71

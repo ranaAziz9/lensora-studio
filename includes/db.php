@@ -2,7 +2,7 @@
 
 // Database connection settings
 $host = "localhost";
-$dbname = "lensora_db";
+$dbname = "lensora_studio";
 $username = "root";
 $password = "";
 
@@ -22,4 +22,10 @@ try {
 
     // Display error message if connection fails
     die("DB Connection Failed: " . $e->getMessage());
+<<<<<<< HEAD
 }
+=======
+}
+?>
+
+>>>>>>> 85d1596fa74e6d08e50182731c676513bc9b7f71

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--
   Name: Amirah Almutairi
   Name: Rana Alzaharni
@@ -29,11 +30,37 @@ if (isset($_GET["id"])) {
             unlink($filePath);
         }
 // Delete the image record from the database.
+=======
+<?php
+require_once "../includes/db.php";
+
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+
+    $stmt = $pdo->prepare("SELECT image_path FROM gallery_images WHERE id = ?");
+    $stmt->execute([$id]);
+    $image = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($image) {
+        $filePath = "../" . $image["image_path"];
+
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+>>>>>>> 85d1596fa74e6d08e50182731c676513bc9b7f71
         $deleteStmt = $pdo->prepare("DELETE FROM gallery_images WHERE id = ?");
         $deleteStmt->execute([$id]);
     }
 }
+<<<<<<< HEAD
 // Redirect back to the gallery management page after deletion.
 header("Location: gallery-manage.php");
 exit();
 ?>
+=======
+
+header("Location: dashboard.php");
+exit();
+?>
+>>>>>>> 85d1596fa74e6d08e50182731c676513bc9b7f71

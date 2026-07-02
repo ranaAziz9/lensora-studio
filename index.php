@@ -28,11 +28,35 @@
     <!-- Skip link for accessibility (keyboard navigation) -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
+<<<<<<< HEAD
     <!-- Font Awesome icons library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <!-- Header navigation -->
     <?php include 'includes/header_nav.php'; ?>
+=======
+    <!-- Header: primary navigation -->
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Primary navigation">
+            <div class="container nav-container">
+                <a href="index.html" class="nav-logo">
+                    <img src="images/logo.png" alt="Lensora Studio logo">
+                </a>
+                <ul id="primary-nav" class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/services.html">Services</a></li>
+                    <li><a href="pages/work.php">Our Work</a></li>
+                    <li><a href="pages/video.php">Video</a></li>
+                    <li><a href="pages/feedback.html">Feedback</a></li>
+                    <li><a href="pages/auth.html" style="background: #000; color: #fff; padding: 6px 15px; border-radius: 20px;">Login / Register</a></li>
+                    <button onclick="location.href='pages/profile.php'">
+My Profile
+</button>
+                </ul>
+            </div>
+        </nav>
+    </header>
+>>>>>>> 85d1596fa74e6d08e50182731c676513bc9b7f71
 
     <main id="main-content" class="main-content">
 
